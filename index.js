@@ -26,6 +26,17 @@ async function run() {
   // );
   // console.log(links);
 
+  // Get courses
+  const courses = await page.evaluate(() =>
+    Array.from(document.querySelectorAll('#courses .card'), (e) => ({
+      title: e.querySelector('.card-body h3').innerText,
+      level: e.querySelector('.card-body .level').innerText,
+      url: e.querySelector('.card-footer a').href,
+      promo: e.querySelector('.card-footer .promo-code .promo').innerText,
+    }))
+  );
+  console.log(courses);
+
   await browser.close();
 }
 
